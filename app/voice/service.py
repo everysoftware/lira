@@ -38,7 +38,7 @@ class VoiceUseCases(UseCase):
             name=name,
             description=desc,
             user_id=user.id,
-            project_id=user_data["project_id"],
+            todo_list_id=user_data["todo_list_id"],
             workspace_id=user_data["workspace_id"],
         )
         await self.uow.tasks.add(task)
