@@ -224,3 +224,21 @@ async def solve(
     logging.info("Full_text: %s", full_text)
     for part in split_msg_html(full_text):
         await call.message.answer(part, parse_mode="HTML")
+
+
+# EDIT COMMENT
+@router.callback_query(F.data == "delete", TaskGroup.get)
+async def delete(
+    call: types.CallbackQuery,
+    state: FSMContext,
+    service: TaskServiceDep,
+    todo_list_service: TodoListServiceDep,
+) -> None:
+    await call.answer()
+    user_data = await state.get_data()
+    task_id = user_data["task_id"]
+    await service.delete(task_id)
+    await call.message.answer("Задача успешно удалена!")
+    await todo_lists_router.get(
+        call.message, state, service, todo_list_service
+    )

@@ -48,3 +48,8 @@ class TaskUseCases(UseCase):
             prompt += f"Description: {task.description}. "
         prompt += "Solve the task"
         return await self.ai.complete(prompt)
+
+    async def delete(self, task_id: UUID) -> None:
+        task = await self.uow.tasks.get_one(task_id)
+        await self.uow.tasks.remove(task)
+        await self.uow.commit()
