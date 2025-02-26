@@ -10,7 +10,7 @@ from app.base.models import Entity
 
 if TYPE_CHECKING:
     from app.tasks.models import Task
-    from app.projects.models import Project
+    from app.lists.models import TodoList
     from app.workspaces.models import Workspace
 
 
@@ -24,7 +24,7 @@ class User(Entity):
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False)
 
     workspaces: Mapped[list[Workspace]] = relationship(back_populates="user")
-    projects: Mapped[list[Project]] = relationship(back_populates="user")
+    todo_lists: Mapped[list[TodoList]] = relationship(back_populates="user")
     tasks: Mapped[list[Task]] = relationship(back_populates="user")
 
     @hybrid_property

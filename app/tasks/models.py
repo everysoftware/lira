@@ -10,7 +10,7 @@ from app.base.types import UUID
 from app.tasks.schemas import TaskStatus, TestStatus
 
 if TYPE_CHECKING:
-    from app.projects.models import Project
+    from app.lists.models import TodoList
     from app.users.models import User
     from app.workspaces.models import Workspace
 
@@ -24,8 +24,8 @@ class Task(Entity):
     workspace_id: Mapped[UUID] = mapped_column(
         ForeignKey("workspaces.id", ondelete="cascade")
     )
-    project_id: Mapped[UUID] = mapped_column(
-        ForeignKey("projects.id", ondelete="cascade")
+    todo_list_id: Mapped[UUID] = mapped_column(
+        ForeignKey("todo_lists.id", ondelete="cascade")
     )
     name: Mapped[str]
     description: Mapped[str | None]
@@ -37,4 +37,4 @@ class Task(Entity):
 
     user: Mapped[User] = relationship(back_populates="tasks")
     workspace: Mapped[Workspace] = relationship(back_populates="tasks")
-    project: Mapped[Project] = relationship(back_populates="tasks")
+    todo_list: Mapped[TodoList] = relationship(back_populates="tasks")

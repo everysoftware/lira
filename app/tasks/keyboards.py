@@ -28,14 +28,13 @@ SHOW_TASK_KB = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text="✏️", callback_data="edit_status"),
-            InlineKeyboardButton(text="🧪", callback_data="edit_test_status"),
             InlineKeyboardButton(text="💬", callback_data="comment"),
+            InlineKeyboardButton(text="🔗", callback_data="report"),
         ],
         [
             InlineKeyboardButton(text="✨", callback_data="complete"),
-            InlineKeyboardButton(text="🔗", callback_data="report"),
             InlineKeyboardButton(text="❌", callback_data="delete"),
         ],
-        [InlineKeyboardButton(text="Назад ⬅️", callback_data="to_project")],
+        [InlineKeyboardButton(text="Назад ⬅️", callback_data="to_todo_list")],
     ]
 )

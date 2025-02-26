@@ -2,7 +2,7 @@ from aiogram.fsm.context import FSMContext
 
 from app.base.use_case import UseCase
 from app.db.dependencies import UOWDep
-from app.projects.models import Project
+from app.lists.models import TodoList
 from app.users.config import auth_settings
 from app.users.models import User
 from app.users.repositories import TelegramUserSpecification
@@ -34,20 +34,20 @@ class AuthUseCases(UseCase):
             user.grant_superuser()
         workspace = Workspace(
             name="Личное пространство",
-            description="Личное пространство, которое создалось при регистрации в Testopia",
+            description="Личное пространство, которое создалось при регистрации",
             user=user,
         )
-        project = Project(
-            name="Стандартный",
-            description="Стандартный проект, который создался при регистрации в Testopia",
+        todo_list = TodoList(
+            name="Стандартный список",
+            description="Стандартный список задач, который создался при регистрации",
             workspace=workspace,
             user=user,
         )
+        user.workspaces.append(workspace)
+        user.todo_lists.append(todo_list)
         await self.uow.users.add(user)
-        await self.uow.workspaces.add(workspace)
-        await self.uow.projects.add(project)
         await self.uow.commit()
         await state.update_data(
-            workspace_id=str(workspace.id), project_id=str(project.id)
+            workspace_id=str(workspace.id), todo_list_id=str(todo_list.id)
         )
         return user

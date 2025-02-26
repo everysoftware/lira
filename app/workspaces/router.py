@@ -15,22 +15,24 @@ router = Router()
 
 @router.callback_query(F.data == "to_workspaces")
 @router.message(Command("workspaces"))
-@router.message(F.text == "Мои пространства 📦")
+@router.message(F.text == "Сменить пространство 📦")
 async def get_many(
     event: types.Message | types.CallbackQuery,
     state: FSMContext,
     user: UserDep,
-    projects: WorkspaceServiceDep,
+    todo_lists: WorkspaceServiceDep,
 ) -> None:
     message = (
         event.message if isinstance(event, types.CallbackQuery) else event
     )
-    response = await projects.get_many(user, LimitOffset(limit=100))
+    response = await todo_lists.get_many(user, LimitOffset(limit=100))
     kb = get_workspace_kb(response)
     if response.total > 0:
-        await message.answer("Ваши пространства", reply_markup=kb)
+        await message.answer(
+            "Выберите пространство, чтобы переключиться", reply_markup=kb
+        )
     else:
-        await message.answer("У Вас нет пространств", reply_markup=kb)
+        await message.answer("Нет пространств", reply_markup=kb)
     await state.set_state(WorkspaceGroup.get_many)
     if isinstance(event, types.CallbackQuery):
         await event.answer()
@@ -39,7 +41,8 @@ async def get_many(
 @router.callback_query(F.data == "add", WorkspaceGroup.get_many)
 async def request_name(call: types.CallbackQuery, state: FSMContext) -> None:
     await call.message.answer(
-        "Назовите пространство. Например, `Рабочее`", reply_markup=CANCEL_KB
+        "Назовите пространство. Например, `Рабочее пространство`",
+        reply_markup=CANCEL_KB,
     )
     await state.set_state(WorkspaceGroup.enter_name)
     await call.answer()
@@ -82,12 +85,12 @@ async def get(
     workspaces: WorkspaceServiceDep,
 ) -> None:
     workspace_id = UUID(call.data.split("_")[1])
-    project = await workspaces.get_one(workspace_id)
+    workspace = await workspaces.get_one(workspace_id)
     await call.message.answer(
-        f"Пространство: {project.name}\n\n"
-        f"Описание: {project.description}\n\n"
-        f"Создано: {project.created_at}\n"
-        f"Обновлено: {project.updated_at}",
+        f"Вы переключились на пространство: *{workspace.name}*\n\n"
+        f"Описание: {workspace.description}\n"
+        f"Создано: {workspace.created_at}\n"
+        f"Обновлено: {workspace.updated_at}",
         reply_markup=SHOW_WORKSPACE_KB,
     )
     await state.update_data(workspace_id=str(workspace_id))

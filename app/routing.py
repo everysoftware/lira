@@ -1,11 +1,11 @@
 from aiogram import Router
 
-from app.users.router import router as start_router
-from app.projects.router import router as checklists_router
-from app.tasks.router import router as tasks_router
-from app.workspaces.router import router as devices_router
+from app.lists.router import router as checklists_router
 from app.stats.router import router as stats_router
+from app.tasks.router import router as tasks_router
+from app.users.router import router as start_router
 from app.voice.router import router as voice_router
+from app.workspaces.router import router as devices_router
 
 routers = [
     start_router,

@@ -9,7 +9,7 @@ from app.base.models import Entity
 from app.base.types import UUID
 
 if TYPE_CHECKING:
-    from app.projects.models import Project
+    from app.lists.models import TodoList
     from app.tasks.models import Task
     from app.users.models import User
 
@@ -24,5 +24,7 @@ class Workspace(Entity):
     )
 
     user: Mapped[User] = relationship(back_populates="workspaces")
-    projects: Mapped[list[Project]] = relationship(back_populates="workspace")
+    todo_lists: Mapped[list[TodoList]] = relationship(
+        back_populates="workspace"
+    )
     tasks: Mapped[list[Task]] = relationship(back_populates="workspace")

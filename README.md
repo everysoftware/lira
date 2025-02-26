@@ -1,48 +1,37 @@
-# Testopia | ИИ таск-трекер
+# Lira
 
-**Интеллектуальное управление задачами для вас и ваших проектов**
+**Intelligent task tracker with AI and voice control**
+
+---
 
 [![Lint](https://github.com/everysoftware/testopia/actions/workflows/ci.yml/badge.svg)](https://github.com/everysoftware/testopia/actions/workflows/ci.yml)
 
-Мощный инструмент для управления задачами, который предлагает решения на основе ИИ и легко
-управляется голосом.
+---
+
+## Features
+
+* **Several Lists**: Split tasks into several to-do lists for better organization
+* **AI Assistant**: Get suggestions for tasks and projects from AI
+* **Voice Control**: Add and view tasks by using voice commands
+* **Workspaces**: Separate work and personal tasks with workspaces
+
+## Get Started
+
+1. Get bot token via [@BotFather](https://t.me/BotFather)
+2. Get client credentials for [GigaChat AI](https://developers.sber.ru/studio/workspaces)
+3. Create `.env` file based on `.env.example`
+4. Run the bot:
+
+```shell
+  make up
+```
+
+## Screenshots
 
 <img src="/assets/onboarding.jpg" width="300" alt=""/><img src="/assets/projects.jpg" width="300" alt=""/>
 
 <img src="/assets/task.jpg" width="300" alt=""/><img src="/assets/solution.jpg" width="300" alt=""/>
 
 <img src="/assets/stats.jpg" width="300" alt=""/>
-
-## Руководство пользователя
-
-При первом запуске бота создается личное пространство и стандартный проект.
-
-Пользователь добавляет в проект задачи, которые нужно выполнить. После выполнения задачи пользователь отмечает ее
-как выполненную. После тестирования задачи пользователь может прикрепить отчет и отметить статус тестирования.
-
-Для помощи в выполнении задачи пользователь может получить решение от ИИ. ИИ анализирует задачу и предлагает
-эффективное решение.
-
-Пользователь может управлять задачами с помощью голосовых сообщений. Список доступных команд:
-
-* Создай задачу "добавить авторизацию"
-* Создай задачу "добавить авторизацию". Добавь описание: "реализовать безопасную авторизацию на токенах"
-* Покажи задачи
-
-> Управление задачами голосом происходит в рамках текущего проекта и текущего пространства.
-
-Пользователь может получить статистику по выполненным задачам в течение года и по состоянию прохождения
-тестов.
-
-## Сборка
-
-1. Получите токен бота в Telegram у [@BotFather](https://t.me/BotFather)
-2. Получите Client ID и Client Secret для [GigaChat AI](https://developers.sber.ru/studio/workspaces)
-3. Создайте файл окружения `.env` на основе `.env.example`
-4. Запустите проект: `make up`
-
-## Разработка
-
-[Макеты Figma](https://www.figma.com/file/iJ7SMg6DCuCaDhNlieh3kd/Untitled?type=design&node-id=0-1&mode=design)
 
 **Made with ❤️**

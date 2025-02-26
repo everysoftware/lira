@@ -12,11 +12,11 @@ from app.tasks.schemas import TaskStatus, TestStatus
 
 
 @dataclass
-class ProjectTaskSpecification(ISpecification):
+class TodoListTaskSpecification(ISpecification):
     checklist_id: UUID
 
     def apply(self, stmt: Any) -> Any:
-        return stmt.where(Task.project_id == self.checklist_id)
+        return stmt.where(Task.todo_list_id == self.checklist_id)
 
 
 class TaskRepository(SQLAlchemyRepository[Task]):

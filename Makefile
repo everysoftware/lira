@@ -26,11 +26,11 @@ upgrade:
 
 .PHONY: format
 format:
-	ruff format $(APP_PATH) $(TESTS_PATH)
+	ruff format .
 
 .PHONY: lint
 lint:
-	ruff check $(APP_PATH) $(TESTS_PATH) --fix
+	ruff check . --fix
 	mypy $(APP_PATH) --install-types --enable-incomplete-feature=NewGenericSyntax
 
 .PHONY: freeze

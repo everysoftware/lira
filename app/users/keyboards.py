@@ -6,15 +6,15 @@ from aiogram.types import (
 MAIN_MENU_KB = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Мои задачи ✅"),
-            KeyboardButton(text="Мои проекты 📝"),
+            KeyboardButton(text="Задачи ✅"),
+            KeyboardButton(text="Списки 📝"),
         ],
         [
-            KeyboardButton(text="Мои пространства 📦"),
             KeyboardButton(text="Статистика 📊"),
+            KeyboardButton(text="Помощь 🧭"),
         ],
         [
-            KeyboardButton(text="Навигация по боту 🧭"),
+            KeyboardButton(text="Сменить пространство 📦"),
         ],
     ],
     resize_keyboard=True,

@@ -2,18 +2,18 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from app.base.pagination import Page
-from app.projects.models import Project
+from app.lists.models import TodoList
 from app.tasks.constants import TASK_STATUSES
 from app.tasks.models import Task
 
 
-def get_project_kb(page: Page[Project]) -> InlineKeyboardMarkup:
+def get_todo_list_kb(page: Page[TodoList]) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     for i in page.items:
         builder.row(
             InlineKeyboardButton(
                 text=i.name,
-                callback_data=f"show_project:{i.id}",
+                callback_data=f"show_todo_list:{i.id}",
             )
         )
     builder.adjust(1)
@@ -36,14 +36,12 @@ def get_tasks_kb(
         )
     if action_btns:
         builder.row(
+            InlineKeyboardButton(text="Новая задача ➕", callback_data="add"),
             InlineKeyboardButton(
-                text="Создать задачу ➕", callback_data="add"
-            ),
-            InlineKeyboardButton(
-                text="Удалить чек-лист ❌", callback_data="delete"
+                text="Удалить список ❌", callback_data="delete"
             ),
         )
     builder.row(
-        InlineKeyboardButton(text="Назад ⬅️", callback_data="to_projects")
+        InlineKeyboardButton(text="Назад ⬅️", callback_data="to_todo_lists")
     )
     return builder.as_markup(resize_keyboard=True)

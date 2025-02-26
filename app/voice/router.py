@@ -5,8 +5,8 @@ from aiogram import Router, types, F
 from aiogram.fsm.context import FSMContext
 
 from app.bot import bot
-from app.projects import router as checklists_router
-from app.projects.dependencies import ProjectServiceDep
+from app.lists import router as checklists_router
+from app.lists.dependencies import TodoListServiceDep
 from app.tasks import router as tasks_router
 from app.tasks.dependencies import TaskServiceDep
 from app.users.dependencies import UserDep
@@ -23,7 +23,7 @@ async def handle_voice_message(
     service: VoiceServiceDep,
     state: FSMContext,
     tasks: TaskServiceDep,
-    checklists: ProjectServiceDep,
+    checklists: TodoListServiceDep,
 ) -> None:
     ogg_path = f"temp/voice_{message.from_user.id}.ogg"
     try:

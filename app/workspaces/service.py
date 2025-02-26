@@ -4,9 +4,9 @@ from app.base.pagination import Pagination, Page
 from app.base.types import UUID
 from app.base.use_case import UseCase
 from app.db.dependencies import UOWDep
+from app.users.models import User
 from app.workspaces.models import Workspace
 from app.workspaces.repositories import UserWorkspaceSpecification
-from app.users.models import User
 
 
 class WorkspaceUseCases(UseCase):
@@ -21,10 +21,10 @@ class WorkspaceUseCases(UseCase):
         )
 
     async def create(self, **kwargs: Any) -> Workspace:
-        project = Workspace(**kwargs)
-        await self.uow.workspaces.add(project)
+        workspace = Workspace(**kwargs)
+        await self.uow.workspaces.add(workspace)
         await self.uow.commit()
-        return project
+        return workspace
 
-    async def get_one(self, project_id: UUID) -> Workspace:
-        return await self.uow.workspaces.get_one(project_id)
+    async def get_one(self, todo_list_id: UUID) -> Workspace:
+        return await self.uow.workspaces.get_one(todo_list_id)

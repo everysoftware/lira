@@ -10,7 +10,7 @@ from sqlalchemy import insert
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
 from app.base.types import UUID, naive_utc
-from app.projects.models import Project
+from app.lists.models import TodoList
 from app.tasks.models import Task
 from app.tasks.schemas import TaskStatus, TestStatus
 from app.users.models import User
@@ -83,14 +83,14 @@ async def fill_tasks_table(db_url: str, user_id: UUID, number: int) -> None:
         async with session.begin():
             user: User = await session.get_one(User, user_id)  # noqa
             ws = Workspace(name="Test workspace", user=user)
-            project = Project(name="Test project", user=user, workspace=ws)
+            project = TodoList(name="Test list", user=user, workspace=ws)
             session.add_all((ws, project))
             await session.flush()
             df = get_df(
                 number,
                 user_id=user.id,
                 workspace_id=ws.id,
-                project_id=project.id,
+                todo_list_id=project.id,
             )
             stmt = insert(Task)
             await session.execute(stmt, df.to_dict(orient="records"))

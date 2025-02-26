@@ -14,8 +14,8 @@ if TYPE_CHECKING:
     from app.workspaces.models import Workspace
 
 
-class Project(Entity):
-    __tablename__ = "projects"
+class TodoList(Entity):
+    __tablename__ = "todo_lists"
 
     user_id: Mapped[UUID] = mapped_column(
         ForeignKey("users.id", ondelete="cascade")
@@ -25,8 +25,8 @@ class Project(Entity):
     )
     name: Mapped[str]
     description: Mapped[str] = mapped_column(default="")
-    stack: Mapped[str] = mapped_column(default="")
+    tags: Mapped[str] = mapped_column(default="")
 
-    user: Mapped[User] = relationship(back_populates="projects")
-    workspace: Mapped[Workspace] = relationship(back_populates="projects")
-    tasks: Mapped[list[Task]] = relationship(back_populates="project")
+    user: Mapped[User] = relationship(back_populates="todo_lists")
+    workspace: Mapped[Workspace] = relationship(back_populates="todo_lists")
+    tasks: Mapped[list[Task]] = relationship(back_populates="todo_list")

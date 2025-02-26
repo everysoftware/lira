@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
 )
 
-from app.projects.repositories import ProjectRepository
+from app.lists.repositories import TodoListRepository
 from app.tasks.repositories import TaskRepository
 from app.users.repositories import UserRepository
 from app.workspaces.repositories import WorkspaceRepository
@@ -20,7 +20,7 @@ from app.workspaces.repositories import WorkspaceRepository
 class IUnitOfWork(ABC):
     users: UserRepository
     tasks: TaskRepository
-    projects: ProjectRepository
+    todo_lists: TodoListRepository
     workspaces: WorkspaceRepository
 
     @abc.abstractmethod
@@ -66,7 +66,7 @@ class SQLAlchemyUOW(IUnitOfWork):
         self._session = self._session_factory()
         self.users = UserRepository(self._session)
         self.tasks = TaskRepository(self._session)
-        self.projects = ProjectRepository(self._session)
+        self.todo_lists = TodoListRepository(self._session)
         self.workspaces = WorkspaceRepository(self._session)
 
     @property
