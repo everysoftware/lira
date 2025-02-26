@@ -31,11 +31,3 @@ async def show(
 
     finally:
         os.remove(daily_stats_path)
-    status_stats_path = await service.plot_by_statuses(user.id)
-    try:
-        await message.answer_photo(
-            photo=FSInputFile(status_stats_path),
-            caption="Состояние прохождения тестов",
-        )
-    finally:
-        os.remove(status_stats_path)
